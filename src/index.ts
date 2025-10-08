@@ -1,4 +1,8 @@
+import { config } from 'dotenv';
 import { compareCVs } from './comparer';
+
+// Load environment variables from .env file
+config();
 
 async function main() {
   // For prototype testing, use mock data since finding real public CV URLs is hard
@@ -44,19 +48,22 @@ async function main() {
   console.log('CV Comparison Result (Prototype with Mock Data):');
   console.log(JSON.stringify(result, null, 2));
 
-  // Uncomment below for real scraping (requires real URLs)
-  /*
-  const hhUrl = 'https://hh.ru/resume/...'; // real HH.ru resume URL
-  const soUrl = 'https://stackoverflow.com/users/12345/username'; // real SO user URL
+  // Use environment variables for URLs
+  const url1 = process.env.CV_URL_1;
+  const url2 = process.env.CV_URL_2;
 
-  try {
-    const realResult = await compareCVs(hhUrl, soUrl);
-    console.log('Real CV Comparison Result:');
-    console.log(JSON.stringify(realResult, null, 2));
-  } catch (error) {
-    console.error('Error:', error);
+  if (url1 && url2) {
+    try {
+      const realResult = await compareCVs(url1, url2);
+      console.log('Real CV Comparison Result:');
+      console.log(JSON.stringify(realResult, null, 2));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  } else {
+    console.log('No URLs provided in environment variables CV_URL_1 and CV_URL_2. Using mock data.');
+    console.log('To use real URLs, set CV_URL_1 and CV_URL_2 in .env file (see .env.example)');
   }
-  */
 }
 
 main();

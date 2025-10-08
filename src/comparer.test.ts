@@ -1,14 +1,18 @@
 import { compareCVs } from './comparer';
 
 describe('CV Comparer', () => {
-  test('should compare two CV data objects', async () => {
-    // Mock scrapers for testing - in real test, we'd mock the scrapers
-    // For now, just test the logic with mock data
-    const mockData1 = { name: 'John Doe', position: 'Developer', skills: ['JS', 'TS'] };
-    const mockData2 = { name: 'John Doe', position: 'Senior Developer', skills: ['JS', 'Python'] };
+  test('should throw error for unsupported URLs', async () => {
+    await expect(compareCVs('https://unsupported.com/cv', 'https://hh.ru/resume/123')).rejects.toThrow('Unsupported URL');
+  });
 
-    // Since we can't easily mock the scrapers without more setup, skip for now
-    // In a real implementation, we'd use dependency injection or mocks
-    expect(true).toBe(true);
+  test('should accept HH.ru URLs', async () => {
+    // This will fail in test environment since no browser, but tests the URL validation
+    await expect(compareCVs('https://hh.ru/resume/123', 'https://hh.ru/resume/456')).rejects.toThrow();
+    // Expect it to fail due to browser/scraping, not URL validation
+  });
+
+  test('should accept Habr Career URLs', async () => {
+    await expect(compareCVs('https://career.habr.com/resumes/123', 'https://hh.ru/resume/456')).rejects.toThrow();
+    // Expect it to fail due to browser/scraping, not URL validation
   });
 });

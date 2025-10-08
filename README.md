@@ -3,13 +3,14 @@ A checker to help employee to keep all their CVs/resumes in sync
 
 ## Prototype
 
-This is a prototype that compares CVs from different platforms like HH.ru and StackOverflow.
+This is a prototype that compares CVs from different platforms like HH.ru and Habr Career.
 
 ### Features
 
 - Scrapes basic information (name, position, location, skills) from CV profiles
 - Compares data between two platforms
 - Identifies matches and differences
+- Environment variable support for configuration
 
 ### Usage
 
@@ -19,7 +20,20 @@ npm run build
 npm start
 ```
 
-The prototype currently uses mock data for demonstration. To use with real URLs, modify `src/index.ts` with actual CV URLs.
+Create a `.env` file based on `.env.example` to provide CV URLs:
+
+```bash
+cp .env.example .env
+# Edit .env with your CV URLs
+npm start
+```
+
+The prototype currently uses mock data for demonstration if no URLs are provided.
+
+### Supported Platforms
+
+- HH.ru (hh.ru)
+- Habr Career (career.habr.com)
 
 ### Example Output
 
@@ -57,7 +71,7 @@ CV Comparison Result (Prototype with Mock Data):
 
 ### Future Enhancements
 
-- Support for more platforms (LinkedIn, Habr Career, etc.)
+- Support for more platforms (LinkedIn, etc.)
 - API-based fetching where available
 - More detailed comparison (experience, education)
 - Web interface

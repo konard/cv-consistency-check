@@ -75,7 +75,10 @@ Self review.
 
 Issue to solve: https://github.com/konard/cv-consistency-check/issues/1
 Your prepared branch: issue-1-14f89304
-Your prepared working directory: /tmp/gh-issue-solver-1759916886237
-Your prepared Pull Request: https://github.com/konard/cv-consistency-check/pull/2
+Your prepared working directory: /tmp/gh-issue-solver-1759920572097
+Your prepared Pull Request: https://github.com/konard/cv-consistency-check/issues/1
 
-Proceed.
+New comments on the pull request: 2
+Pull request description was edited after last commit
+
+Continue.

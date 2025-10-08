@@ -1,14 +1,20 @@
 import { CVData, ComparisonResult } from './types';
 import { HHScraper } from './hhScraper';
-import { SOFScraper } from './soScraper';
+import { HabrScraper } from './habrScraper';
 
 export async function compareCVs(url1: string, url2: string): Promise<ComparisonResult> {
   const hhScraper = new HHScraper();
-  const sofScraper = new SOFScraper();
+  const habrScraper = new HabrScraper();
 
   // Determine which scraper to use based on URL
-  const scraper1 = url1.includes('hh.ru') ? hhScraper : sofScraper;
-  const scraper2 = url2.includes('hh.ru') ? hhScraper : sofScraper;
+  const getScraper = (url: string) => {
+    if (url.includes('hh.ru')) return hhScraper;
+    if (url.includes('career.habr.com')) return habrScraper;
+    throw new Error(`Unsupported URL: ${url}. Currently supports hh.ru and career.habr.com`);
+  };
+
+  const scraper1 = getScraper(url1);
+  const scraper2 = getScraper(url2);
 
   const [data1, data2] = await Promise.all([
     scraper1.scrape(url1),
